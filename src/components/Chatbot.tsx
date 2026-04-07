@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { OpenAI } from "openai";
 import { marked } from "marked";
+
+// ============================================================
+// CẤU HÌNH HỆ THỐNG
+// ============================================================
+
+// URL của Google Apps Script Web App (Thay thế bằng URL của bạn ở Bước 3)
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-YOUR-DEPLOY-ID/exec";
 
 // Cấu hình OpenAI SDK
 const openai = new OpenAI({
@@ -26,6 +33,12 @@ export default function Chatbot() {
   const [systemPrompt, setSystemPrompt] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Tạo Session ID duy nhất cho mỗi phiên kết nối
+  const sessionId = useMemo(() => "session_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7), []);
+
+  // Regex để bóc tách LEAD_DATA
+  const dataPattern = /\|\|LEAD_DATA:\s*(\{.*?\})\s*\|\|/;
+
   // Load knowledge base to create System Prompt
   useEffect(() => {
     const loadKnowledgeBase = async () => {
@@ -33,18 +46,22 @@ export default function Chatbot() {
         const response = await fetch("/chatbot_data.txt");
         const data = await response.text();
         
-        const prompt = `Bạn là trợ lý ảo độc quyền của chuyên gia Nguyễn Văn A.
+        const prompt = `Bạn là trợ lý ảo chuyên nghiệp của Kiến trúc sư Lê Hà (chủ website này).
         
-Dữ liệu kiến thức của bạn:
+Dữ liệu kiến thức:
 ${data}
 
-Quy định trả lời:
-1. Bạn chỉ được trả lời dựa trên thông tin trong Dữ liệu kiến thức trên.
-2. Luôn trả lời bằng định dạng Markdown đẹp mắt.
-3. Luôn bắt đầu bằng lời chào thân thiện.
-4. Luôn kết thúc bằng lời mời đặt thêm câu hỏi về dịch vụ hoặc khóa học.
-5. Nếu câu hỏi nằm ngoài phạm vi kiến thức, hãy từ chối nhẹ nhàng và hướng dẫn người dùng liên hệ qua Email hoặc Zalo được cung cấp.
-6. Ngôn ngữ: Tiếng Việt.`;
+QUY ĐỊNH TRẢ LỜI:
+1. Luôn chào thân thiện và trả lời bằng Markdown.
+2. Chỉ trả lời dựa trên Dữ liệu kiến thức. Nếu ngoài phạm vi, hướng dẫn liên hệ Zalo 0123456789.
+
+3. QUY TẮC ĐẶC BIỆT: Trong quá trình trò chuyện, nếu bạn phát hiện người dùng cung cấp Tên, Số điện thoại hoặc Email, bạn HÃY VỪA trả lời họ bình thường, VỪA chèn thêm một đoạn mã JSON vào cuối cùng của câu trả lời theo đúng định dạng sau:
+   ||LEAD_DATA: {"name": "...", "phone": "...", "email": "..."}|| 
+   Nếu thông tin nào chưa có, hãy để null. 
+   TUYỆT ĐỐI KHÔNG giải thích hay đề cập đến đoạn mã này cho người dùng.
+
+4. Nếu người dùng chưa cho đủ thông tin quan trọng, hãy khéo léo hỏi thêm để có thể tư vấn tốt nhất.
+5. Ngôn ngữ: Tiếng Việt.`;
         
         setSystemPrompt(prompt);
         
@@ -68,6 +85,50 @@ Quy định trả lời:
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
+  /**
+   * Gửi dữ liệu Lead lên Google Sheets
+   */
+  const sendLeadToGoogleSheets = async (leadData: any, chatHistoryText: string) => {
+    if (GOOGLE_SCRIPT_URL.includes("YOUR-DEPLOY-ID")) {
+      console.warn("⚠️ Chưa cấu hình GOOGLE_SCRIPT_URL. Bỏ qua gửi dữ liệu.");
+      return;
+    }
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: leadData.name || "",
+          phone: leadData.phone || "",
+          email: leadData.email || "",
+          source: window.location.href,
+          sessionId: sessionId,
+          chatHistory: chatHistoryText,
+          timestamp: new Date().toLocaleString("vi-VN"),
+        }),
+      });
+      console.log("✅ Đã đồng bộ dữ liệu vào Google Sheets!");
+    } catch (err) {
+      console.warn("⚠️ Không gửi được dữ liệu lead:", err);
+    }
+  };
+
+  /**
+   * Định dạng lịch sử chat để gửi sang Google Sheets cho dễ đọc
+   */
+  const formatChatHistory = (history: Message[]) => {
+    return history
+      .map((msg) => {
+        const role = msg.role === "user" ? "Khách" : "AI";
+        // Lọc bỏ tag ẩn trước khi lưu vào lịch sử
+        const content = msg.content.replace(dataPattern, "").trim();
+        return `${role}: ${content}`;
+      })
+      .join("\n\n");
+  };
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -88,11 +149,32 @@ Quy định trả lời:
         messages: apiMessages as any,
       });
 
-      const assistantMessage = response.choices[0]?.message?.content || "Xin lỗi, tôi gặp sự cố khi xử lý yêu cầu.";
+      let assistantMessage = response.choices[0]?.message?.content || "Xin lỗi, tôi gặp sự cố khi xử lý yêu cầu.";
+      
+      // Xử lý bóc tách LEAD_DATA
+      if (assistantMessage.includes("||LEAD_DATA:")) {
+        const match = assistantMessage.match(dataPattern);
+        if (match && match[1]) {
+          try {
+            const leadData = JSON.parse(match[1]);
+            console.log("🎯 Bóc được Lead Data:", leadData);
+
+            if (leadData.name || leadData.phone || leadData.email) {
+              const chatHistoryText = formatChatHistory([...newMessages, { role: "assistant", content: assistantMessage }]);
+              sendLeadToGoogleSheets(leadData, chatHistoryText);
+            }
+          } catch (e) {
+            console.error("❌ Lỗi parse JSON lead:", e);
+          }
+        }
+        // Làm sạch câu trả lời hiển thị cho khách
+        assistantMessage = assistantMessage.replace(dataPattern, "").trim();
+      }
+
       setMessages([...newMessages, { role: "assistant", content: assistantMessage }]);
     } catch (error) {
       console.error("Lỗi API Chatbot:", error);
-      setMessages([...newMessages, { role: "assistant", content: "Hiện tại hệ thống AI đang bận, vui lòng thử lại sau giây lát." }]);
+      setMessages([...newMessages, { role: "assistant", content: "Hệ thống AI đang bận, vui lòng thử lại sau giây lát." }]);
     } finally {
       setIsLoading(false);
     }
@@ -100,12 +182,11 @@ Quy định trả lời:
 
   const handleRefresh = () => {
     setIsRefreshing(true);
-    // Reset hội thoại
     setTimeout(() => {
       setMessages([
         { 
           role: "assistant", 
-          content: "Xin chào! Tôi đã sẵn sàng hỗ trợ bạn lại từ đầu. Bạn quan tâm đến dịch vụ nào của chuyên gia Nguyễn Văn A?" 
+          content: "Xin chào! Hội thoại đã được làm mới. Tôi là trợ lý của Kiến trúc sư Lê Hà, tôi có thể tư vấn gì cho bạn không?" 
         }
       ]);
       setIsRefreshing(false);
@@ -145,19 +226,21 @@ Quy định trả lời:
                   <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-surface animate-pulse"></div>
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">Assistant A</h3>
-                  <span className="text-[10px] text-zinc-400">Trực tuyến</span>
+                  <h3 className="text-sm font-bold text-white">Lê Hà Assistant</h3>
+                  <span className="text-[10px] text-zinc-400">Đang hoạt động</span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <button 
                   onClick={handleRefresh}
+                  title="Làm mới hội thoại"
                   className={`p-2 hover:bg-white/10 rounded-full transition-colors text-zinc-400 hover:text-white ${isRefreshing ? 'animate-spin' : ''}`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
                 </button>
                 <button 
                   onClick={() => setIsOpen(false)}
+                  title="Đóng cửa sổ chat"
                   className="p-2 hover:bg-white/10 rounded-full transition-colors text-zinc-400 hover:text-white"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -172,7 +255,7 @@ Quy định trả lời:
                   <div className={`max-w-[85%] p-3 rounded-2xl ${
                     msg.role === 'user' 
                       ? 'bg-primary text-on-primary rounded-tr-none' 
-                      : 'bg-white/5 border border-white/10 text-zinc-200 rounded-tl-none'
+                      : 'bg-white/5 border border-white/10 text-zinc-200 rounded-tl-none shadow-lg'
                   }`}>
                     <div 
                       className="chat-markdown"
@@ -184,7 +267,7 @@ Quy định trả lời:
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="bg-white/5 border border-white/10 p-3 rounded-2xl rounded-tl-none text-zinc-400 text-sm flex items-center gap-2">
-                    <span>Đang nhập</span>
+                    <span>Đang trả lời</span>
                     <span className="flex gap-1">
                       <span className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce"></span>
                       <span className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
@@ -204,18 +287,18 @@ Quy định trả lời:
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Nhập câu hỏi của bạn..."
+                  placeholder="Nhập yêu cầu của bạn tại đây..."
                   className="w-full bg-surface-container border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-500 focus:outline-none focus:border-primary/50 transition-all"
                 />
                 <button
                   onClick={handleSend}
                   disabled={isLoading || !input.trim()}
-                  className="absolute right-2 p-2 bg-primary text-on-primary rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                  className="absolute right-2 p-2 bg-primary text-on-primary rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-opacity hover:opacity-90"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 </button>
               </div>
-              <p className="text-[9px] text-zinc-500 text-center mt-2">Được vận hành bởi AI trợ lý cao cấp</p>
+              <p className="text-[9px] text-zinc-500 text-center mt-2">Dữ liệu lead sẽ được lưu trữ tự động</p>
             </div>
           </motion.div>
         )}
