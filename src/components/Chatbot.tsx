@@ -52,7 +52,7 @@ Quy định trả lời:
         setMessages([
           { 
             role: "assistant", 
-            content: "Xin chào! Tôi là trợ lý ảo của chuyên gia Nguyễn Văn A. Tôi có thể giúp gì cho bạn về giải pháp AI, Automation hoặc các khóa học Agentic AI không?" 
+            content: "Xin chào! Tôi là trợ lý ảo của Kiến trúc sư Lê Hà. Tôi có thể giúp gì cho bạn về các giải pháp thiết kế kiến trúc và nội thất không?" 
           }
         ]);
       } catch (error) {
