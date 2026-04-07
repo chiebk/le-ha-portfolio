@@ -5,19 +5,19 @@ import Services from "@/components/Services";
 import Portfolio from "@/components/Portfolio";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-surface">
+    <main className="min-h-screen bg-surface">
       <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Portfolio />
-        <Contact />
-      </main>
+      <Hero />
+      <About />
+      <Services />
+      <Portfolio />
+      <Contact />
       <Footer />
-    </div>
+      <Chatbot />
+    </main>
   );
 }

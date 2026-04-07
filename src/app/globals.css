@@ -57,3 +57,54 @@ body {
 .ambient-glow-amber {
   background: radial-gradient(circle at center, rgba(242, 202, 80, 0.05) 0%, transparent 70%);
 }
+
+/* Chatbot Markdown Styles */
+.chat-markdown {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.chat-markdown p {
+  margin-bottom: 0.75rem;
+}
+
+.chat-markdown p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-markdown ul, .chat-markdown ol {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.chat-markdown li {
+  margin-bottom: 0.25rem;
+}
+
+.chat-markdown strong {
+  font-weight: 700;
+  color: #f2ca50; /* Primary color */
+}
+
+.chat-markdown code {
+  background-color: #2a2a2a;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85em;
+}
+
+.chat-markdown blockquote {
+  border-left: 4px solid #f2ca50;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #a0a0a0;
+  margin: 0.5rem 0;
+}
+
+.chat-markdown h1, .chat-markdown h2, .chat-markdown h3 {
+  color: #f2ca50;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
