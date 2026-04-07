@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LÊ HÀ ARCHITECTURE | Kiến trúc &amp; Nội thất</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#3a3939",
+                    "surface-container-highest": "#353534",
+                    "surface-container": "#201f1f",
+                    "tertiary-container": "#00c7ca",
+                    "on-primary-fixed-variant": "#574500",
+                    "error-container": "#93000a",
+                    "on-error": "#690005",
+                    "surface": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "outline": "#99907c",
+                    "on-surface": "#e5e2e1",
+                    "surface-container-high": "#2a2a2a",
+                    "primary-fixed": "#ffe088",
+                    "on-tertiary-container": "#004e4f",
+                    "on-tertiary-fixed": "#002020",
+                    "on-primary-container": "#554300",
+                    "inverse-primary": "#735c00",
+                    "background": "#131313",
+                    "on-primary": "#3c2f00",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "secondary-container": "#454747",
+                    "primary": "#f2ca50",
+                    "secondary-fixed-dim": "#c6c6c6",
+                    "tertiary": "#3de4e7",
+                    "primary-container": "#d4af37",
+                    "on-secondary-fixed-variant": "#454747",
+                    "on-tertiary-fixed-variant": "#004f51",
+                    "on-secondary": "#2f3131",
+                    "on-surface-variant": "#d0c5af",
+                    "on-tertiary": "#003738",
+                    "on-secondary-container": "#b5b5b5",
+                    "secondary": "#c6c6c6",
+                    "tertiary-fixed": "#5af8fb",
+                    "surface-container-lowest": "#0e0e0e",
+                    "outline-variant": "#4d4635",
+                    "surface-dim": "#131313",
+                    "inverse-on-surface": "#313030",
+                    "secondary-fixed": "#e2e2e2",
+                    "surface-tint": "#e9c349",
+                    "inverse-surface": "#e5e2e1",
+                    "error": "#ffb4ab",
+                    "primary-fixed-dim": "#e9c349",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-variant": "#353534",
+                    "on-primary-fixed": "#241a00",
+                    "on-background": "#e5e2e1",
+                    "tertiary-fixed-dim": "#2ddbde"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-glow-amber {
+            text-shadow: 0 0 15px rgba(242, 202, 80, 0.3);
+        }
+        .ambient-glow-cyan {
+            background: radial-gradient(circle at center, rgba(61, 228, 231, 0.08) 0%, transparent 70%);
+        }
+        .ambient-glow-amber {
+            background: radial-gradient(circle at center, rgba(242, 202, 80, 0.05) 0%, transparent 70%);
+        }
+    </style>
+</head>
+<body class="selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-neutral-950/60 backdrop-blur-xl shadow-2xl shadow-black/20 flex justify-between items-center px-6 md:px-12 py-6 w-full transition-all duration-500">
+<div class="font-serif text-xl tracking-widest text-amber-500 uppercase">LÊ HÀ</div>
+<div class="hidden md:flex gap-12 items-center">
+<a class="font-serif tracking-tighter uppercase text-xs text-amber-500 border-b border-amber-500 pb-1" href="#">Work</a>
+<a class="font-serif tracking-tighter uppercase text-xs text-neutral-400 hover:text-white transition-colors" href="#services">Services</a>
+<a class="font-serif tracking-tighter uppercase text-xs text-neutral-400 hover:text-white transition-colors" href="#about">Profile</a>
+<a class="font-serif tracking-tighter uppercase text-xs text-neutral-400 hover:text-white transition-colors" href="#contact">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-8 py-2 font-serif text-[10px] tracking-[0.2em] uppercase hover:bg-amber-400 transition-all duration-300">
+            Inquire
+        </button>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center overflow-hidden bg-surface-container-lowest">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40" data-alt="Ultra-modern minimalist living room with floor-to-ceiling windows, sculptural furniture, and dramatic architectural lighting at dusk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe_H83_OgwQ5ZMEd6ajL6oibmuUdiz4pMTp9nspL1YvDL-DwdMYymVT1egiXjyOCr_V2hl6-fzDdR_jGOl52h_KyGGzxGE-NqQnRy1vj8ipQ7bAqTs-5GI8ZgWgo44mGhVbW7R9fBE7giOrbMzMjVOSNrWl-vTRE-kyKJIKsz2uMn0DTbJJuPi4c0VrOjM57eJMBks4OLQysTT0v1p_6MhDfBUzbmUsxdb33hejUgnbGtlSWIcT5nyqm4Gobx1R7KcVT80zFhSUCE"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-transparent"></div>
+</div>
+<div class="container mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-8 lg:col-span-7">
+<div class="flex items-center gap-4 mb-8">
+<div class="relative">
+<div class="absolute inset-0 rounded-full bg-primary blur-md opacity-30 animate-pulse"></div>
+<img class="w-16 h-16 rounded-full object-cover relative z-10 border border-primary/50" data-alt="Professional portrait of a male architect in a black turtleneck, clean lighting, minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeHzIcahUbcuP7w0YKbnxtJyzExEzHx3HAyHsSMflFRdoG9-d_ZibySnCVj1igF6rOPsvnxwkhhun48LOTSzYcKXzxGc6GXq53OGCaO_Jp4r_D-j-SRUHA-VTMf8rUa0JCJKRSy0hH49taLtAeehIewK-z-KvT9eMTtqCsS1ImmSHlvL18PTtiznrQiZPF6MrDbt1NzZhJHGu8liNGPxlJGzTC3z9sXroaBCs0ybJj7EC74y82y9IYixpfqOOJUtlkfkQ7tyaKwTo"/>
+</div>
+<div>
+<p class="text-primary font-serif tracking-[0.3em] uppercase text-[10px]">Architect &amp; Designer</p>
+<h2 class="text-on-surface font-headline text-lg">Lê Hà</h2>
+</div>
+</div>
+<h1 class="font-headline text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 tracking-tighter text-glow-amber">
+                        Kiến Tạo Không Gian,<br/>
+<span class="text-primary-container">Nâng Tầm Cuộc Sống</span>
+</h1>
+<p class="text-on-surface-variant font-body text-lg max-w-lg mb-12 leading-relaxed">
+                        Chúng tôi không chỉ xây dựng công trình, chúng tôi kiến tạo những trải nghiệm sống tinh tế thông qua ngôn ngữ kiến trúc tối giản và hiện đại.
+                    </p>
+<div class="flex flex-wrap gap-6">
+<button class="bg-primary text-on-primary px-10 py-4 font-serif text-xs tracking-[0.2em] uppercase hover:scale-105 transition-transform">
+                            Bắt đầu dự án
+                        </button>
+<button class="border border-outline-variant/30 text-on-surface px-10 py-4 font-serif text-xs tracking-[0.2em] uppercase hover:bg-white/5 transition-colors">
+                            Xem Portfolio
+                        </button>
+</div>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 hidden md:block">
+<div class="w-[1px] h-24 bg-gradient-to-b from-primary to-transparent"></div>
+</div>
+</section>
+<!-- About Philosophy Section -->
+<section class="py-32 bg-surface" id="about">
+<div class="container mx-auto px-6 md:px-12">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
+<div class="md:col-span-5 order-2 md:order-1">
+<div class="aspect-[3/4] relative overflow-hidden">
+<img class="w-full h-full object-cover grayscale contrast-125" data-alt="Abstract architectural photography of concrete stairs and sharp shadows, high contrast black and white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVAVX2K_RI2_Y3MELNA_5ak2mtdbNvQ-oT2onMD2ZG_NENAB_rCTMWZZV9H5f9nOvt8hnEzcC1y_-fk11cgeDyQYa6oR_6GNK6rWT-O0pKGNExsS0G41Pt7KykJbdir0ydPfBnIE72NlnJAWIfH2OZTpe_XNplpL7RgHPfRiPqaIxOBOr9I1TeBhbcgvu9SWSyaumrXNcnoPnQevhFohNO-L-_AQX1x0dq1Jx9_IwibSGKAvRtEuXj6kZEZLi9KhBlrl5MJqBo-zo"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+</div>
+</div>
+<div class="md:col-span-7 order-1 md:order-2">
+<span class="text-primary font-serif tracking-[0.4em] uppercase text-[10px] block mb-6">Philosophy</span>
+<h2 class="font-headline text-4xl md:text-6xl mb-12 leading-tight">Triết lý của sự tĩnh lặng và cấu trúc.</h2>
+<div class="space-y-8 text-on-surface-variant font-body text-lg leading-relaxed max-w-2xl">
+<p>Kiến trúc đối với tôi là sự cân bằng giữa những khoảng trống và chất liệu. Mỗi đường nét đều mang một mục đích, mỗi vật liệu đều kể một câu chuyện về sự bền vững và thẩm mỹ.</p>
+<p>Chúng tôi tập trung vào việc tối ưu hóa ánh sáng tự nhiên và sự luân chuyển không khí, biến ngôi nhà thành một thực thể sống hòa quyện với môi trường xung quanh.</p>
+</div>
+<div class="mt-16 grid grid-cols-3 gap-8 border-t border-outline-variant/20 pt-12">
+<div>
+<h4 class="text-primary font-headline text-3xl mb-2">12+</h4>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest">Năm kinh nghiệm</p>
+</div>
+<div>
+<h4 class="text-primary font-headline text-3xl mb-2">150+</h4>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest">Dự án hoàn thiện</p>
+</div>
+<div>
+<h4 class="text-primary font-headline text-3xl mb-2">24</h4>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest">Giải thưởng quốc tế</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-32 bg-surface-container-lowest relative" id="services">
+<div class="absolute inset-0 ambient-glow-cyan"></div>
+<div class="container mx-auto px-6 md:px-12 relative z-10">
+<div class="text-center mb-24">
+<span class="text-tertiary font-serif tracking-[0.4em] uppercase text-[10px] block mb-4">Services</span>
+<h2 class="font-headline text-4xl md:text-5xl">Dịch Vụ Chuyên Nghiệp</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/10">
+<!-- Card 1 -->
+<div class="bg-surface p-12 hover:bg-surface-container-high transition-all duration-700 group">
+<div class="w-16 h-16 mb-8 flex items-center justify-center border border-tertiary/20 group-hover:border-tertiary transition-colors relative">
+<div class="absolute inset-0 bg-tertiary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-tertiary text-3xl">architecture</span>
+</div>
+<h3 class="font-headline text-2xl mb-6">Tư vấn kiến trúc</h3>
+<p class="text-on-surface-variant font-body mb-8 leading-relaxed">Phân tích mặt bằng, quy hoạch không gian và định hướng phong cách kiến trúc bền vững.</p>
+<ul class="space-y-3 text-xs uppercase tracking-widest text-on-surface/60">
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-tertiary"></span> Quy hoạch tổng thể</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-tertiary"></span> Thiết kế kết cấu</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-tertiary"></span> Giấy phép xây dựng</li>
+</ul>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface p-12 hover:bg-surface-container-high transition-all duration-700 group">
+<div class="w-16 h-16 mb-8 flex items-center justify-center border border-primary/20 group-hover:border-primary transition-colors relative">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-primary text-3xl">chair</span>
+</div>
+<h3 class="font-headline text-2xl mb-6">Thiết kế nội thất</h3>
+<p class="text-on-surface-variant font-body mb-8 leading-relaxed">Sự kết hợp hoàn mỹ giữa công năng sử dụng và cá tính riêng biệt của gia chủ.</p>
+<ul class="space-y-3 text-xs uppercase tracking-widest text-on-surface/60">
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-primary"></span> 3D Visualization</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-primary"></span> Lựa chọn vật liệu</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-primary"></span> Thiết kế Bespoke</li>
+</ul>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface p-12 hover:bg-surface-container-high transition-all duration-700 group">
+<div class="w-16 h-16 mb-8 flex items-center justify-center border border-tertiary/20 group-hover:border-tertiary transition-colors relative">
+<div class="absolute inset-0 bg-tertiary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-tertiary text-3xl">handyman</span>
+</div>
+<h3 class="font-headline text-2xl mb-6">Thi công trọn gói</h3>
+<p class="text-on-surface-variant font-body mb-8 leading-relaxed">Quản lý dự án từ bản vẽ đến thực tế, đảm bảo độ chính xác và chất lượng hoàn thiện cao nhất.</p>
+<ul class="space-y-3 text-xs uppercase tracking-widest text-on-surface/60">
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-tertiary"></span> Giám sát tác giả</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-tertiary"></span> Quản lý tiến độ</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-tertiary"></span> Bàn giao chìa khóa</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Gallery -->
+<section class="py-32 bg-surface">
+<div class="container mx-auto px-6 md:px-12">
+<div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+<div class="max-w-xl">
+<span class="text-primary font-serif tracking-[0.4em] uppercase text-[10px] block mb-4">Portfolio</span>
+<h2 class="font-headline text-4xl md:text-6xl">Dự Án Tiêu Biểu</h2>
+</div>
+<div class="hidden md:block">
+<a class="group flex items-center gap-4 text-xs uppercase tracking-widest border-b border-outline-variant pb-2 hover:border-primary transition-all" href="#">
+                            Xem tất cả dự án
+                            <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<div class="md:col-span-8 group relative overflow-hidden">
+<img class="w-full aspect-video object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="Luxury minimalist villa living room with natural wood accents and large windows overlooking a garden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEXtokAWZ1S1XcFfv4McNVH4m7F3wDUrOR9XrWAPUnMv2pzyT7SRi4gWRCNYMbYOLEXZVaL1sEVPGuJFtzGL_e4EHXyHzC6-xMsyxaCOIdgxghT8x3J9v34dk2yqhjpN3EK9N3XRrKE0R0mqIn7iP5tEV2kj-L6RGztCzhvb4HpY98Z81Y81QEfa2AeF69cxs9LKP54BOACFr_hqTMtGWHo4eJjk_0RC6OG_PpOvv5UCafRnfOQ_MukGcha6j19TVD3Gnd_vPqouo"/>
+<div class="absolute inset-0 bg-neutral-950/40 opacity-0 group-hover:opacity-100 transition-opacity p-12 flex flex-col justify-end">
+<p class="text-primary text-[10px] tracking-[0.3em] uppercase mb-2">Residential</p>
+<h3 class="font-headline text-3xl">The Zen House, Hà Nội</h3>
+</div>
+</div>
+<div class="md:col-span-4 group relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 min-h-[400px]" data-alt="Minimalist modern bedroom with soft ambient lighting and charcoal grey textiles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_Iudk1Y6pnpfHJoO5ZOLOBlu_qfTw7cinhbZb_DbCYR87Yb2qL4dCRlso6jsvzNmQim11td4Rce0XIv5n3MxrGhv4rEO7Xhz_dult6hmWF4h_zm8XGJRgFpcVf5LbqKX5xiqU2TUdj5vBcOsxqWDysSfsr9enkpUB0qhqw1nsaAw085MHoXYlTFRkeXAtuLOmS9bcHx2D0lqZ2i-_rBahqrsEN6Oy1uE1aH-JfTHOOiA30Ticjit1mod9d7-i9Z1RfxramPlwbl4"/>
+<div class="absolute inset-0 bg-neutral-950/40 opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+<p class="text-primary text-[10px] tracking-[0.3em] uppercase mb-2">Interior</p>
+<h3 class="font-headline text-2xl">Aura Apartment</h3>
+</div>
+</div>
+<div class="md:col-span-4 group relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 min-h-[400px]" data-alt="Architectural exterior view of a contemporary concrete villa at night with warm interior lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIS1G276DTcVougVjWRk2xnJVJvhb5tL-DrROy3AN07VDO2bgSV89rFOSEuQuoH3GAl0TY1BRfRT5n3s-TSGTaOhqQs7_ljLRexU3gOiHHy8ljyJ5RNlWEJ-uhftTWZlPnSIUHqti6XuJSeht_1fTuLQRH_NgmLu1dK3XRofaBUOT8mvxRqHfJWT9yGiJPvo6hofwGnGeM8pLmBwbRlhH1RD1toQ9AHY-DeTwPw-lI2w-zABPNCNSh86hVXL3Bu3G-qJyXFpkPwMg"/>
+<div class="absolute inset-0 bg-neutral-950/40 opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+<p class="text-primary text-[10px] tracking-[0.3em] uppercase mb-2">Exterior</p>
+<h3 class="font-headline text-2xl">Concrete Monolith</h3>
+</div>
+</div>
+<div class="md:col-span-8 group relative overflow-hidden">
+<img class="w-full aspect-video object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="Close up of high-end kitchen detail with marble island and designer gold pendant lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlkfx6YuewZS9sL83ChyH_u2jfQ_2DoaJ76FqZuBIzRRJ6kTHWd7lQL7nLhCLZkGR6tvNJY6wyqqoI7T0krSl4fL8EybpW1JtZJ6Nf2NR-hK_dXYZxLqWHSL-JrZxyGjG8gLqtoX4-PANSTb_w0bir0W75vSFA-Np8EU-6HvOS95lfS6-uYFwq0N1XCwhU5XTkUHMIBT6mK_Bm-mSeC56pZMoS294f-HQT_eZJXuUyg85l2bxRDyoZYKtKwbYkygd3PtiBG6mcw6I"/>
+<div class="absolute inset-0 bg-neutral-950/40 opacity-0 group-hover:opacity-100 transition-opacity p-12 flex flex-col justify-end">
+<p class="text-primary text-[10px] tracking-[0.3em] uppercase mb-2">Hospitality</p>
+<h3 class="font-headline text-3xl">Gourmet Studio</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-32 bg-surface-container-lowest relative overflow-hidden" id="contact">
+<div class="absolute top-0 right-0 w-1/2 h-full ambient-glow-amber opacity-40"></div>
+<div class="container mx-auto px-6 md:px-12 relative z-10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
+<div>
+<span class="text-primary font-serif tracking-[0.4em] uppercase text-[10px] block mb-6">Contact</span>
+<h2 class="font-headline text-5xl md:text-7xl mb-12">Bắt đầu câu chuyện của bạn.</h2>
+<div class="space-y-12">
+<div>
+<p class="text-[10px] uppercase tracking-[0.3em] text-on-surface/40 mb-2">Địa chỉ</p>
+<p class="font-body text-lg">Phố Huế, Hai Bà Trưng, Hà Nội</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-[0.3em] text-on-surface/40 mb-2">Email</p>
+<p class="font-body text-lg">contact@leha-arch.vn</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-[0.3em] text-on-surface/40 mb-2">Phone</p>
+<p class="font-body text-lg">+84 90 000 0000</p>
+</div>
+</div>
+</div>
+<!-- Glassmorphism Form -->
+<div class="bg-surface-container/60 backdrop-blur-2xl p-12 border border-outline-variant/10 shadow-2xl">
+<form class="space-y-10">
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest text-primary block mb-2">Họ &amp; Tên</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 text-on-surface focus:ring-0 focus:border-primary transition-all placeholder:text-on-surface/20" placeholder="Nguyễn Văn A" type="text"/>
+</div>
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest text-primary block mb-2">Email</label>
+<input class="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 text-on-surface focus:ring-0 focus:border-primary transition-all placeholder:text-on-surface/20" placeholder="email@domain.com" type="email"/>
+</div>
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest text-primary block mb-2">Loại hình dự án</label>
+<select class="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 text-on-surface focus:ring-0 focus:border-primary transition-all appearance-none">
+<option class="bg-surface">Biệt thự nghỉ dưỡng</option>
+<option class="bg-surface">Căn hộ cao cấp</option>
+<option class="bg-surface">Văn phòng - Studio</option>
+<option class="bg-surface">Nhà hàng - Cafe</option>
+</select>
+</div>
+<div class="relative">
+<label class="text-[10px] uppercase tracking-widest text-primary block mb-2">Lời nhắn</label>
+<textarea class="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 text-on-surface focus:ring-0 focus:border-primary transition-all placeholder:text-on-surface/20" placeholder="Chia sẻ về dự án của bạn..." rows="4"></textarea>
+</div>
+<button class="w-full bg-primary text-on-primary py-5 font-serif text-xs tracking-[0.3em] uppercase hover:bg-amber-400 transition-colors" type="submit">
+                                Gửi Yêu Cầu
+                            </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-neutral-950">
+<div class="flex flex-col md:flex-row justify-between items-center px-6 md:px-12 py-16 w-full max-w-screen-2xl mx-auto border-t border-neutral-900">
+<div class="mb-8 md:mb-0">
+<p class="font-serif text-[10px] tracking-[0.2em] uppercase text-neutral-600">© 2024 LÊ HÀ ARCHITECTURE</p>
+</div>
+<div class="flex gap-8">
+<a class="font-serif text-[10px] tracking-[0.2em] uppercase text-neutral-600 hover:text-amber-400 transition-colors opacity-80 hover:opacity-100" href="#">Instagram</a>
+<a class="font-serif text-[10px] tracking-[0.2em] uppercase text-neutral-600 hover:text-amber-400 transition-colors opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+<a class="font-serif text-[10px] tracking-[0.2em] uppercase text-neutral-600 hover:text-amber-400 transition-colors opacity-80 hover:opacity-100" href="#">Behance</a>
+<a class="font-serif text-[10px] tracking-[0.2em] uppercase text-neutral-600 hover:text-amber-400 transition-colors opacity-80 hover:opacity-100" href="#">Journal</a>
+</div>
+<div class="mt-8 md:mt-0">
+<p class="font-serif text-[10px] tracking-[0.2em] uppercase text-neutral-600">Designed by Lê Hà Studio</p>
+</div>
+</div>
+</footer>
+</body></html>
