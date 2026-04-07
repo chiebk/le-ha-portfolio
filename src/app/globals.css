@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Noto Serif", serif;
+  --font-body: "Inter", sans-serif;
+
+  --color-surface: #131313;
+  --color-surface-dim: #131313;
+  --color-surface-bright: #3a3939;
+  --color-surface-container: #201f1f;
+  --color-surface-container-low: #1c1b1b;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353534;
+  
+  --color-primary: #f2ca50;
+  --color-primary-container: #d4af37;
+  --color-on-primary: #3c2f00;
+  --color-on-primary-container: #554300;
+  
+  --color-secondary: #c6c6c6;
+  --color-on-secondary: #2f3131;
+  --color-secondary-container: #454747;
+  
+  --color-tertiary: #3de4e7;
+  --color-tertiary-container: #00c7ca;
+  --color-on-tertiary: #003738;
+  
+  --color-on-surface: #e5e2e1;
+  --color-on-surface-variant: #d0c5af;
+  --color-outline: #99907c;
+  --color-outline-variant: #4d4635;
+  
+  --color-background: #131313;
+  --color-on-background: #e5e2e1;
+}
+
+:root {
+  --background: #131313;
+  --foreground: #e5e2e1;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+.text-glow-amber {
+  text-shadow: 0 0 15px rgba(242, 202, 80, 0.3);
+}
+
+.ambient-glow-cyan {
+  background: radial-gradient(circle at center, rgba(61, 228, 231, 0.08) 0%, transparent 70%);
+}
+
+.ambient-glow-amber {
+  background: radial-gradient(circle at center, rgba(242, 202, 80, 0.05) 0%, transparent 70%);
+}
